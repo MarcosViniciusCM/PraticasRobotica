@@ -1,49 +1,79 @@
 import os
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess
+from launch.actions import ExecuteProcess, IncludeLaunchDescription, TimerAction
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
+
 
 def generate_launch_description():
-    pkg_name = 'model_description'
-    pkg_share = get_package_share_directory(pkg_name)
+    pkg_model_description = get_package_share_directory('model_description')
+    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
-    urdf_file = os.path.join(pkg_share, 'urdf', 'my_robot.urdf')
+    xacro_file = os.path.join(pkg_model_description, 'urdf', 'my_robot.urdf.xacro')
+    robot_description = ParameterValue(Command(['xacro ', xacro_file]), value_type=str)
 
-    with open(urdf_file, 'r') as infp:
-        robot_desc = infp.read()
-
-    # Inicia gzserver carregando expressamente as bibliotecas ROS
-    start_gzserver = ExecuteProcess(
-        cmd=['gzserver', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', '--verbose'],
-        output='screen'
+    gzserver = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
+        )
     )
 
-    # Inicia a interface gráfica
-    start_gzclient = ExecuteProcess(
-        cmd=['gzclient'],
-        output='screen'
+    # O gzclient precisa subir DEPOIS que o gzserver ja estiver de pe: iniciar
+    # os dois ao mesmo tempo causa uma condicao de corrida em que a GUI tenta
+    # criar a camera do usuario antes do servidor ter publicado a cena, travando
+    # o processo com uma assertion em rendering::Camera. O rasterizador por
+    # software evita a mesma trava quando a GPU virtual do WSL (/dev/dxg, driver
+    # d3d12) falha ao criar essa camera; sem efeito em Linux nativo com GPU real.
+    # Os caminhos GAZEBO_MODEL_PATH/PLUGIN_PATH/RESOURCE_PATH ja vem corretos do
+    # ambiente (setup.bash do gazebo) e nao devem ser sobrescritos aqui: fazer
+    # isso perde o caminho padrao de midia do Gazebo e tambem trava a camera.
+    gzclient = TimerAction(
+        period=8.0,
+        actions=[
+            ExecuteProcess(
+                cmd=['gzclient', '--gui-client-plugin=libgazebo_ros_eol_gui.so'],
+                output='screen',
+                additional_env={
+                    'LIBGL_ALWAYS_SOFTWARE': '1',
+                    'OGRE_RTT_MODE': 'Copy',
+                },
+            )
+        ],
     )
 
-    # Publica a árvore de transformações e robot_description
-    robot_state_publisher_node = Node(
+    robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        parameters=[{'robot_description': robot_desc}]
+        parameters=[{'robot_description': robot_description}],
     )
 
-    # Insere o robô na simulação após o serviço estar ativo
-    spawn_entity = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=['-topic', 'robot_description', '-entity', 'my_robot', '-z', '0.2'],
-        output='screen'
+    # Adiado ainda mais para dar tempo do gzclient (que ja teve seus 8s de
+    # espera) terminar de inicializar a cena e a camera antes do robo aparecer.
+    spawn_entity = TimerAction(
+        period=16.0,
+        actions=[
+            Node(
+                package='gazebo_ros',
+                executable='spawn_entity.py',
+                arguments=[
+                    '-topic', 'robot_description',
+                    '-entity', 'my_robot',
+                    '-z', '0.1',
+                    '-timeout', '60',
+                ],
+                output='screen',
+            )
+        ],
     )
 
     return LaunchDescription([
-        start_gzserver,
-        start_gzclient,
-        robot_state_publisher_node,
-        spawn_entity
+        gzserver,
+        gzclient,
+        robot_state_publisher,
+        spawn_entity,
     ])
