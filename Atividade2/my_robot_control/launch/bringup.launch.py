@@ -12,6 +12,7 @@ Uso:
     ros2 launch my_robot_control bringup.launch.py
     ros2 launch my_robot_control bringup.launch.py teleop:=false   # sem teclado
     ros2 launch my_robot_control bringup.launch.py gui:=false      # sem gzclient
+    ros2 launch my_robot_control bringup.launch.py controllers_file:=/caminho/outro.yaml
 """
 
 import os
@@ -39,7 +40,9 @@ def generate_launch_description():
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
     xacro_file = os.path.join(pkg_share, 'urdf', 'my_robot.urdf.xacro')
-    controllers_file = os.path.join(pkg_share, 'config', 'diff_drive_controller.yaml')
+    default_controllers_file = os.path.join(
+        pkg_share, 'config', 'diff_drive_controller.yaml')
+    controllers_file = LaunchConfiguration('controllers_file')
 
     gui = LaunchConfiguration('gui')
 
@@ -215,6 +218,8 @@ def generate_launch_description():
                               description='Abre o gzclient (interface grafica do Gazebo)'),
         DeclareLaunchArgument('teleop', default_value='true',
                               description='Abre o teleop_twist_keyboard em um xterm'),
+        DeclareLaunchArgument('controllers_file', default_value=default_controllers_file,
+                              description='YAML do controller_manager/diff_drive_controller'),
         model_path,
         gazebo_models,
         gazebo_resources,

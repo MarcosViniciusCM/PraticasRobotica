@@ -1,0 +1,20 @@
+# Pratica 03 - Exercicio 1.1: ganhos do controle de pose continuo.
+# Cada PID e um control_toolbox::Pid: kp, ki, kd, i_max/i_min (limites do termo
+# integral) e antiwindup. Com ki = kd = 0 o controlador e o P classico da lei
+# polar do Siegwart; condicoes de estabilidade para o caso P:
+#   pid_rho.kp > 0,  pid_beta.kp < 0,  pid_alpha.kp > pid_rho.kp
+pose_controller:
+  ros__parameters:
+    use_sim_time: true
+    position_tolerance: 0.05     # m
+    yaw_tolerance: 0.03          # rad (~1.7 graus)
+    max_linear_velocity: 0.6     # m/s
+    max_angular_velocity: 1.5    # rad/s
+
+    # v = PID_rho(rho) * max(cos(alpha), 0)
+    pid_rho:   {kp: 0.6, ki: 0.0, kd: 0.0, i_max: 0.0, antiwindup: true}
+    # w = PID_alpha(alpha) + PID_beta(beta)
+    pid_alpha: {kp: 2.0, ki: 0.0, kd: 0.05, i_max: 0.0, antiwindup: true}
+    pid_beta:  {kp: -0.4, ki: 0.0, kd: 0.0, i_max: 0.0, antiwindup: true}
+    # correcao final de orientacao (no lugar), com integral para zerar o erro
+    pid_yaw:   {kp: 2.0, ki: 0.2, kd: 0.0, i_max: 0.3, antiwindup: true}

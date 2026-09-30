@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  Pratica 03 - Exercicio 2.2
+  Layout do PlotJuggler para a trajetoria em 8.
+
+  Aba "Trajetoria" - esquerda  - plano XY, 8 desejado (azul) x real (vermelho)
+                     direita   - x(t) e y(t), desejado x real
+  Aba "Erro"       - erro de posicao em x e y, erro de orientacao e RMSE
+                     acumulado (x = posicao em m, y = orientacao em rad)
+-->
+<root>
+    <tabbed_widget name="Main Window" parent="main_window">
+        <Tab tab_name="Trajetoria" containers="1">
+            <Container>
+                <DockSplitter orientation="|" count="2" sizes="0.55;0.45">
+                    <DockArea name="Plano XY (m)">
+                        <plot flip_y="false" mode="XYPlot" flip_x="false" style="Lines">
+                            <range bottom="-1.500000" top="1.500000" left="-1.500000" right="1.500000"/>
+                            <limitY/>
+                            <curve name="/figure8/desired_pose/pose/position/[x;y]" color="#1f77b4" curve_x="/figure8/desired_pose/pose/position/x" curve_y="/figure8/desired_pose/pose/position/y"/>
+                            <curve name="/odom/pose/pose/position/[x;y]" color="#d62728" curve_x="/odom/pose/pose/position/x" curve_y="/odom/pose/pose/position/y"/>
+                        </plot>
+                    </DockArea>
+                    <DockSplitter orientation="-" count="2" sizes="0.5;0.5">
+                        <DockArea name="x (m)">
+                            <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                                <range bottom="-1.200000" top="1.200000" left="0.000000" right="60.000000"/>
+                                <limitY/>
+                                <curve name="/figure8/desired_pose/pose/position/x" color="#1f77b4"/>
+                                <curve name="/odom/pose/pose/position/x" color="#d62728"/>
+                            </plot>
+                        </DockArea>
+                        <DockArea name="y (m)">
+                            <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                                <range bottom="-1.200000" top="1.200000" left="0.000000" right="60.000000"/>
+                                <limitY/>
+                                <curve name="/figure8/desired_pose/pose/position/y" color="#1f77b4"/>
+                                <curve name="/odom/pose/pose/position/y" color="#d62728"/>
+                            </plot>
+                        </DockArea>
+                    </DockSplitter>
+                </DockSplitter>
+            </Container>
+        </Tab>
+        <Tab tab_name="Erro" containers="1">
+            <Container>
+                <DockSplitter orientation="-" count="3" sizes="0.333;0.333;0.334">
+                    <DockArea name="Erro de posicao (m)">
+                        <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                            <range bottom="-0.500000" top="0.500000" left="0.000000" right="60.000000"/>
+                            <limitY/>
+                            <curve name="/figure8/error/vector/x" color="#1f77b4"/>
+                            <curve name="/figure8/error/vector/y" color="#2ca02c"/>
+                        </plot>
+                    </DockArea>
+                    <DockArea name="Erro de orientacao (rad)">
+                        <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                            <range bottom="-1.000000" top="1.000000" left="0.000000" right="60.000000"/>
+                            <limitY/>
+                            <curve name="/figure8/error/vector/z" color="#9467bd"/>
+                        </plot>
+                    </DockArea>
+                    <DockArea name="RMSE acumulado">
+                        <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                            <range bottom="0.000000" top="0.500000" left="0.000000" right="60.000000"/>
+                            <limitY/>
+                            <curve name="/figure8/rmse/vector/x" color="#d62728"/>
+                            <curve name="/figure8/rmse/vector/y" color="#ff7f0e"/>
+                        </plot>
+                    </DockArea>
+                </DockSplitter>
+            </Container>
+        </Tab>
+        <currentTabIndex index="0"/>
+    </tabbed_widget>
+    <use_relative_time_offset enabled="1"/>
+    <!-- ................. -->
+    <Plugins>
+        <plugin ID="ROS2 Topic Subscriber">
+            <use_header_stamp value="false"/>
+            <discard_large_arrays value="true"/>
+            <max_array_size value="100"/>
+            <selected_topics value="/odom;/cmd_vel;/figure8/desired_pose;/figure8/error;/figure8/rmse"/>
+        </plugin>
+    </Plugins>
+    <previouslyLoaded_Streamer name="ROS2 Topic Subscriber"/>
+    <!-- ................. -->
+    <customMathEquations/>
+    <snippets/>
+</root>

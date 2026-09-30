@@ -1,0 +1,4 @@
+label,mode,kff,Omega,laps,rmse_pos_m,rmse_yaw_rad,max_pos_err_m
+open_loop,open_loop,1,0.5,2,0.318255,0.0422203,0.3658
+feedback_kff0,feedback,0,0.5,2,0.381367,0.606679,0.523383
+feedback_kff1,feedback,1,0.5,2,0.0540544,0.0271721,0.329437

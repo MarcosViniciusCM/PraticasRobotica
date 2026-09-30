@@ -1,0 +1,15 @@
+# Pratica 03 - Exercicio 1.1 (bonus): ganhos do controle de pose em 3 manobras.
+three_step_controller:
+  ros__parameters:
+    use_sim_time: true
+    position_tolerance: 0.05     # m
+    yaw_tolerance: 0.03          # rad
+    max_linear_velocity: 0.6     # m/s
+    max_angular_velocity: 1.5    # rad/s
+
+    # rotacoes 1 e 3 (no lugar):  w = PID_angular(erro de orientacao)
+    pid_angular: {kp: 2.5, ki: 0.2, kd: 0.0, i_max: 0.3, antiwindup: true}
+    # translacao:  v = PID_linear(distancia ao alvo ao longo da reta)
+    pid_linear:  {kp: 0.8, ki: 0.0, kd: 0.0, i_max: 0.0, antiwindup: true}
+    # translacao:  w = PID_heading(desvio da direcao da reta)
+    pid_heading: {kp: 3.0, ki: 0.0, kd: 0.0, i_max: 0.0, antiwindup: true}

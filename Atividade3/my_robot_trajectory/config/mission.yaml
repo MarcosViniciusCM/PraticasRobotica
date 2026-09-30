@@ -1,0 +1,16 @@
+# Pratica 03 - Exercicio 1.2: missao por waypoints.
+# Cada waypoint e [x (m), y (m), yaw (graus)] no referencial odom, cuja origem
+# e a pose inicial do robo. Minimo pedido no roteiro: 3 waypoints.
+mission_follower:
+  ros__parameters:
+    use_sim_time: true
+    waypoints: ["p1", "p2", "p3", "p4"]
+    p1: [2.0, 0.0, 90.0]
+    p2: [2.0, 2.0, 180.0]
+    p3: [0.0, 2.0, -90.0]
+    p4: [0.0, 0.0, 0.0]
+
+    frame_id: odom
+    start_delay: 2.0             # s apos odometria + controlador prontos
+    waypoint_timeout: 60.0       # s; esgotado, segue para o proximo
+    loop: false                  # true repete a missao indefinidamente
