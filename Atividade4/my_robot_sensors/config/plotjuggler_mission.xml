@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  Pratica 03 - Exercicio 1.2
+  Layout do PlotJuggler para a missao por waypoints.
+
+  Esquerda - caminho percorrido no plano XY (vermelho) e os alvos enviados em
+             /goal_pose (azul, um ponto por waypoint)
+  Direita  - comandos publicados em /cmd_vel (v e w)
+-->
+<root>
+    <tabbed_widget name="Main Window" parent="main_window">
+        <Tab tab_name="Missao" containers="1">
+            <Container>
+                <DockSplitter orientation="|" count="2" sizes="0.55;0.45">
+                    <DockArea name="Plano XY (m)">
+                        <plot flip_y="false" mode="XYPlot" flip_x="false" style="LinesAndDots">
+                            <range bottom="-0.500000" top="2.500000" left="-0.500000" right="2.500000"/>
+                            <limitY/>
+                            <curve name="/odom/pose/pose/position/[x;y]" color="#d62728" curve_x="/odom/pose/pose/position/x" curve_y="/odom/pose/pose/position/y"/>
+                            <curve name="/goal_pose/pose/position/[x;y]" color="#1f77b4" curve_x="/goal_pose/pose/position/x" curve_y="/goal_pose/pose/position/y"/>
+                        </plot>
+                    </DockArea>
+                    <DockSplitter orientation="-" count="2" sizes="0.5;0.5">
+                        <DockArea name="v (m/s)">
+                            <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                                <range bottom="-0.100000" top="0.700000" left="0.000000" right="60.000000"/>
+                                <limitY/>
+                                <curve name="/cmd_vel/linear/x" color="#1f77b4"/>
+                                <curve name="/odom/twist/twist/linear/x" color="#d62728"/>
+                            </plot>
+                        </DockArea>
+                        <DockArea name="w (rad/s)">
+                            <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                                <range bottom="-1.600000" top="1.600000" left="0.000000" right="60.000000"/>
+                                <limitY/>
+                                <curve name="/cmd_vel/angular/z" color="#1f77b4"/>
+                                <curve name="/odom/twist/twist/angular/z" color="#d62728"/>
+                            </plot>
+                        </DockArea>
+                    </DockSplitter>
+                </DockSplitter>
+            </Container>
+        </Tab>
+        <currentTabIndex index="0"/>
+    </tabbed_widget>
+    <use_relative_time_offset enabled="1"/>
+    <!-- ................. -->
+    <Plugins>
+        <plugin ID="ROS2 Topic Subscriber">
+            <use_header_stamp value="false"/>
+            <discard_large_arrays value="true"/>
+            <max_array_size value="100"/>
+            <selected_topics value="/odom;/cmd_vel;/goal_pose"/>
+        </plugin>
+    </Plugins>
+    <previouslyLoaded_Streamer name="ROS2 Topic Subscriber"/>
+    <!-- ................. -->
+    <customMathEquations/>
+    <snippets/>
+</root>

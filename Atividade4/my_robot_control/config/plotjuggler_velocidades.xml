@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  Pratica 02 - Exercicio 1.2
+  Layout do PlotJuggler para comparar o comando publicado em /cmd_vel com a
+  resposta medida publicada em /odom.
+
+  Grafico de cima  - velocidade LINEAR   (m/s)
+  Grafico de baixo - velocidade ANGULAR  (rad/s)
+
+  Em cada grafico, a curva azul e o comando e a vermelha e a resposta medida.
+
+  Para abrir, use o comando que esta no README do pacote (a linha de uso nao
+  cabe aqui porque comentario XML nao aceita hifen duplo).
+-->
+<root>
+    <tabbed_widget name="Main Window" parent="main_window">
+        <Tab tab_name="Comando x Resposta" containers="1">
+            <Container>
+                <DockSplitter orientation="-" count="2" sizes="0.5;0.5">
+                    <DockArea name="Velocidade linear (m/s)">
+                        <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                            <range bottom="-1.200000" top="1.200000" left="0.000000" right="60.000000"/>
+                            <limitY/>
+                            <curve name="/cmd_vel/linear/x" color="#1f77b4"/>
+                            <curve name="/odom/twist/twist/linear/x" color="#d62728"/>
+                        </plot>
+                    </DockArea>
+                    <DockArea name="Velocidade angular (rad/s)">
+                        <plot flip_y="false" mode="TimeSeries" flip_x="false" style="Lines">
+                            <range bottom="-2.400000" top="2.400000" left="0.000000" right="60.000000"/>
+                            <limitY/>
+                            <curve name="/cmd_vel/angular/z" color="#1f77b4"/>
+                            <curve name="/odom/twist/twist/angular/z" color="#d62728"/>
+                        </plot>
+                    </DockArea>
+                </DockSplitter>
+            </Container>
+        </Tab>
+        <currentTabIndex index="0"/>
+    </tabbed_widget>
+    <use_relative_time_offset enabled="1"/>
+    <!-- ................. -->
+    <Plugins>
+        <plugin ID="ROS2 Topic Subscriber">
+            <use_header_stamp value="false"/>
+            <discard_large_arrays value="true"/>
+            <max_array_size value="100"/>
+            <selected_topics value="/cmd_vel;/odom"/>
+        </plugin>
+    </Plugins>
+    <previouslyLoaded_Streamer name="ROS2 Topic Subscriber"/>
+    <!-- ................. -->
+    <customMathEquations/>
+    <snippets/>
+</root>

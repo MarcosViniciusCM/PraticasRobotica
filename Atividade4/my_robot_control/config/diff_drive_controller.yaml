@@ -1,0 +1,75 @@
+# Pratica 02 - Exercicio 1.2
+# Configuracao do controller_manager (embarcado no Gazebo pelo plugin
+# gazebo_ros2_control) e do diff_drive_controller.
+
+controller_manager:
+  ros__parameters:
+    # Igual ao passo de fisica do Gazebo (1000 Hz). Com uma taxa menor o Gazebo
+    # avisa no log que o periodo do controlador e mais lento que o da simulacao.
+    update_rate: 1000  # Hz
+    use_sim_time: true
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
+
+joint_state_broadcaster:
+  ros__parameters:
+    use_sim_time: true
+
+diff_drive_controller:
+  ros__parameters:
+    use_sim_time: true
+
+    left_wheel_names: ["left_wheel_joint"]
+    right_wheel_names: ["right_wheel_joint"]
+
+    # Parametros geometricos: precisam bater com o URDF, senao a odometria
+    # e a conversao (v, w) -> (wl, wr) ficam com erro de escala.
+    # wheel_separation = 2 * wheel_offset_y = 2 * 0.13
+    wheel_separation: 0.26
+    wheel_radius: 0.1
+
+    # Fatores de correcao empiricos (1.0 = usa exatamente o valor acima).
+    # Servem para compensar afundamento do pneu / derrapagem sem mexer no URDF.
+    wheel_separation_multiplier: 1.0
+    left_wheel_radius_multiplier: 1.0
+    right_wheel_radius_multiplier: 1.0
+
+    publish_rate: 50.0
+    odom_frame_id: odom
+    base_frame_id: base_link
+    pose_covariance_diagonal: [0.001, 0.001, 0.0, 0.0, 0.0, 0.01]
+    twist_covariance_diagonal: [0.001, 0.0, 0.0, 0.0, 0.0, 0.01]
+
+    # open_loop: false -> a odometria e integrada a partir da velocidade medida
+    # nas rodas (state_interface), e nao do comando. E o que permite comparar
+    # comando x resposta no PlotJuggler.
+    open_loop: false
+    enable_odom_tf: true
+
+    # Twist simples (geometry_msgs/Twist) em vez de TwistStamped, que e o que
+    # o teleop_twist_keyboard publica.
+    use_stamped_vel: false
+    cmd_vel_timeout: 0.5   # s - para o robo se o teleop morrer
+    velocity_rolling_window_size: 10
+
+    # Limites de velocidade e aceleracao: a rampa de aceleracao e o que deixa
+    # o movimento suave (sem escorregar a roda na partida).
+    linear.x.has_velocity_limits: true
+    linear.x.has_acceleration_limits: true
+    linear.x.has_jerk_limits: false
+    linear.x.max_velocity: 1.0       # m/s
+    linear.x.min_velocity: -1.0
+    linear.x.max_acceleration: 1.0   # m/s^2
+    linear.x.min_acceleration: -1.0
+
+    angular.z.has_velocity_limits: true
+    angular.z.has_acceleration_limits: true
+    angular.z.has_jerk_limits: false
+    angular.z.max_velocity: 2.0      # rad/s
+    angular.z.min_velocity: -2.0
+    angular.z.max_acceleration: 2.0  # rad/s^2
+    angular.z.min_acceleration: -2.0

@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<!--
+  Pratica 02 - Controle de movimento I
+  Modelo URDF do robo diferencial (convertido do modelo da pratica 01).
+
+  Exercicio 1.1 - descricao do robo em URDF/xacro.
+  Exercicio 1.2 - interface ros2_control + plugin gazebo_ros2_control, de forma
+  que o diff_drive_controller comande as velocidades das rodas.
+
+  O argumento use_ros2_control permite carregar o mesmo modelo sem a pilha de
+  controle (usado pelo launch do exercicio 1.1, que so exibe o robo no Gazebo).
+-->
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="use_ros2_control" default="true" />
+  <xacro:arg name="controllers_file"
+             default="$(find my_robot_control)/config/diff_drive_controller.yaml" />
+
+  <!-- ==================== dimensoes ==================== -->
+  <xacro:property name="chassis_x" value="0.4" />
+  <xacro:property name="chassis_y" value="0.2" />
+  <xacro:property name="chassis_z" value="0.1" />
+  <xacro:property name="chassis_mass" value="5.0" />
+
+  <xacro:property name="wheel_radius" value="0.1" />
+  <xacro:property name="wheel_length" value="0.05" />
+  <xacro:property name="wheel_mass" value="0.5" />
+  <xacro:property name="wheel_offset_x" value="0.1" />
+  <xacro:property name="wheel_offset_y" value="0.13" />
+
+  <xacro:property name="caster_radius" value="0.05" />
+  <xacro:property name="caster_mass" value="0.2" />
+
+  <xacro:property name="half_pi" value="1.5707963267948966" />
+
+  <!-- Parametros derivados usados tambem pelo controlador (config/*.yaml)
+       wheel_separation = 2 * wheel_offset_y = 0.26 m
+       wheel_radius     = 0.1 m -->
+
+  <!-- ==================== macros de inercia ==================== -->
+  <!-- Caixa solida centrada na origem -->
+  <xacro:macro name="box_inertia" params="m x y z">
+    <inertial>
+      <mass value="${m}" />
+      <inertia ixx="${m * (y*y + z*z) / 12.0}" ixy="0.0" ixz="0.0"
+               iyy="${m * (x*x + z*z) / 12.0}" iyz="0.0"
+               izz="${m * (x*x + y*y) / 12.0}" />
+    </inertial>
+  </xacro:macro>
+
+  <!-- Cilindro solido girando em torno de Y (mesma rpy da geometria da roda) -->
+  <xacro:macro name="wheel_inertia" params="m r l">
+    <inertial>
+      <origin xyz="0 0 0" rpy="${half_pi} 0 0" />
+      <mass value="${m}" />
+      <inertia ixx="${m * (3.0*r*r + l*l) / 12.0}" ixy="0.0" ixz="0.0"
+               iyy="${m * (3.0*r*r + l*l) / 12.0}" iyz="0.0"
+               izz="${m * r * r / 2.0}" />
+    </inertial>
+  </xacro:macro>
+
+  <!-- Esfera solida -->
+  <xacro:macro name="sphere_inertia" params="m r">
+    <inertial>
+      <mass value="${m}" />
+      <inertia ixx="${2.0 * m * r * r / 5.0}" ixy="0.0" ixz="0.0"
+               iyy="${2.0 * m * r * r / 5.0}" iyz="0.0"
+               izz="${2.0 * m * r * r / 5.0}" />
+    </inertial>
+  </xacro:macro>
+
+  <!-- ==================== chassi ==================== -->
+  <link name="base_link">
+    <visual>
+      <!-- mesh unitario escalado para as dimensoes do chassi -->
+      <geometry>
+        <mesh filename="package://my_robot_control/meshes/chassis_box.stl"
+              scale="${chassis_x} ${chassis_y} ${chassis_z}" />
+      </geometry>
+      <material name="blue">
+        <color rgba="0.1 0.3 0.8 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${chassis_x} ${chassis_y} ${chassis_z}" />
+      </geometry>
+    </collision>
+    <xacro:box_inertia m="${chassis_mass}" x="${chassis_x}" y="${chassis_y}" z="${chassis_z}" />
+  </link>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <!-- ==================== rodas ==================== -->
+  <xacro:macro name="wheel" params="prefix reflect">
+    <link name="${prefix}_wheel">
+      <visual>
+        <origin xyz="0 0 0" rpy="${half_pi} 0 0" />
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+        </geometry>
+        <material name="black">
+          <color rgba="0.1 0.1 0.1 1.0" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="${half_pi} 0 0" />
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+        </geometry>
+      </collision>
+      <xacro:wheel_inertia m="${wheel_mass}" r="${wheel_radius}" l="${wheel_length}" />
+    </link>
+
+    <joint name="${prefix}_wheel_joint" type="continuous">
+      <parent link="base_link" />
+      <child link="${prefix}_wheel" />
+      <origin xyz="${wheel_offset_x} ${reflect * wheel_offset_y} 0" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <!-- effort e o limite de torque que o gazebo_ros2_control usa como fmax do
+           motor da junta; deixar folga evita que o servo de velocidade sature
+           quando o atrito resiste ao movimento. -->
+      <limit effort="100.0" velocity="20.0" />
+      <dynamics damping="0.0" friction="0.0" />
+    </joint>
+
+    <!-- Atrito alto - as rodas precisam de aderencia para nao patinar ao girar.
+         kp/kd modelam o contato rigido e minDepth evita que a roda "afunde"
+         no chao, o que faria o raio efetivo ser menor que o do controlador. -->
+    <gazebo reference="${prefix}_wheel">
+      <material>Gazebo/Black</material>
+      <!-- fdir1 define a primeira direcao de atrito no referencial do link.
+           Apontando no eixo da roda (0 1 0), mu1 passa a ser o atrito LATERAL e
+           mu2 o atrito LONGITUDINAL (de rolamento). Sem fdir1 o ODE escolhe uma
+           direcao arbitraria e mu1/mu2 nao correspondem ao comportamento de um
+           pneu. Atrito lateral baixo deixa a roda arrastar de lado no giro em
+           torno do proprio eixo (senao o motor da junta satura e a velocidade
+           angular fica abaixo da comandada); atrito longitudinal alto mantem a
+           tracao para frente. -->
+      <fdir1>0 1 0</fdir1>
+      <mu1>0.1</mu1>
+      <mu2>1.5</mu2>
+      <kp>1000000.0</kp>
+      <kd>10.0</kd>
+      <minDepth>0.001</minDepth>
+      <maxVel>0.1</maxVel>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:wheel prefix="left" reflect="1" />
+  <xacro:wheel prefix="right" reflect="-1" />
+
+  <!-- ==================== roda boba (esfera sem atrito) ==================== -->
+  <link name="caster_wheel">
+    <visual>
+      <geometry>
+        <sphere radius="${caster_radius}" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="${caster_radius}" />
+      </geometry>
+    </collision>
+    <xacro:sphere_inertia m="${caster_mass}" r="${caster_radius}" />
+  </link>
+
+  <joint name="caster_wheel_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="caster_wheel" />
+    <origin xyz="-0.15 0 -0.05" rpy="0 0 0" />
+  </joint>
+
+  <!-- Atrito zero - a esfera desliza livremente, entao nao introduz um torque
+       resistente que atrapalharia o giro sobre o proprio eixo. -->
+  <gazebo reference="caster_wheel">
+    <material>Gazebo/Black</material>
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <!-- ==================== ros2_control ==================== -->
+  <xacro:if value="$(arg use_ros2_control)">
+
+    <!-- Interface de hardware simulada - comando em velocidade nas duas rodas,
+         realimentacao de posicao e velocidade (usada pela odometria). -->
+    <ros2_control name="GazeboSystem" type="system">
+      <hardware>
+        <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+      </hardware>
+
+      <joint name="left_wheel_joint">
+        <command_interface name="velocity">
+          <param name="min">-20.0</param>
+          <param name="max">20.0</param>
+        </command_interface>
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+      </joint>
+
+      <joint name="right_wheel_joint">
+        <command_interface name="velocity">
+          <param name="min">-20.0</param>
+          <param name="max">20.0</param>
+        </command_interface>
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+      </joint>
+    </ros2_control>
+
+    <!-- O plugin sobe o controller_manager dentro do processo do Gazebo, le o
+         arquivo de configuracao dos controladores e cria a interface de
+         hardware simulada declarada acima.
+
+         Observacao - o diff_drive_controller publica/escuta em topicos
+         relativos ao proprio no (~/cmd_vel_unstamped e ~/odom), e nesta versao
+         do ros2_control as regras de remapping do controller_manager nao sao
+         repassadas aos controladores. Por isso os nomes /cmd_vel e /odom
+         pedidos no roteiro sao expostos pelo no diff_drive_bridge (ver
+         scripts/diff_drive_bridge.py), lancado junto no bringup.launch.py. -->
+    <gazebo>
+      <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <parameters>$(arg controllers_file)</parameters>
+      </plugin>
+    </gazebo>
+
+  </xacro:if>
+
+</robot>

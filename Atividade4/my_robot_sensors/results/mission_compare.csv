@@ -1,0 +1,3 @@
+label,waypoints,tempo_total_s,distancia_m,erro_pos_medio_m,erro_yaw_medio_deg
+continuous,4,35.7,8.32311,0.0546464,1.64877
+three_step,4,29.1,7.85678,0.0523147,1.56874

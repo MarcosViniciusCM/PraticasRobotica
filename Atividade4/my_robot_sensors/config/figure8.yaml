@@ -1,0 +1,28 @@
+# Pratica 03 - Exercicio 2.1: trajetoria em 8 e controlador.
+#   x_d = A sin(Omega t),  y_d = B sin(Omega t) cos(Omega t)
+figure8_tracker:
+  ros__parameters:
+    use_sim_time: true
+
+    # ---- trajetoria
+    A: 1.0                       # m - amplitude em x
+    B: 2.0                       # m - em y o 8 vai de -B/2 a +B/2
+    Omega: 0.5                   # rad/s - periodo T = 2 pi / Omega
+    laps: 2.0                    # voltas; 0 = infinito
+
+    # ---- controlador
+    mode: feedback               # feedback | open_loop
+    kff: 1.0                     # ganho do termo feedforward (so em feedback)
+    d: 0.3                       # m - ponto de controle a frente do eixo
+    # u = Kff * dP_d + PID(P_d - P), um PID por eixo
+    pid_x: {kp: 2.0, ki: 0.0, kd: 0.0, i_max: 0.0, antiwindup: true}
+    pid_y: {kp: 2.0, ki: 0.0, kd: 0.0, i_max: 0.0, antiwindup: true}
+
+    max_linear_velocity: 1.5     # m/s - igual ao limite do diff_drive_controller
+    max_angular_velocity: 4.0    # rad/s
+
+    # ---- partida
+    align_start: true            # gira no lugar ate a direcao inicial do 8
+    pid_align: {kp: 2.0, ki: 0.0, kd: 0.0, i_max: 0.0, antiwindup: true}
+    align_tolerance: 0.02        # rad
+    start_delay: 2.0             # s apos a primeira odometria

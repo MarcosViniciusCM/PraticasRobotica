@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>my_robot_sensors</name>
+  <version>0.1.0</version>
+  <description>Pratica 04 - Sensores e Controle Realista: IMU, GPS, Camera RGB, Lidar 2D e seguimento de trajetoria com sensores</description>
+  <maintainer email="marcosviniciuscm16@gmail.com">marco</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>control_toolbox</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+
+  <exec_depend>my_robot_control</exec_depend>
+  <exec_depend>plotjuggler_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
