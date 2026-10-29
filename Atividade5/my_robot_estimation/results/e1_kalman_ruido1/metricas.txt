@@ -1,0 +1,5 @@
+e1_kalman_ruido1  (2660 amostras, 53.2 s)
+  odometria ruidosa    RMSE pos = 1.1778 m   yaw = 0.4324 rad
+  sensor de posicao    RMSE pos = 0.0763 m   yaw = 0.0711 rad
+  Kalman               RMSE pos = 0.0457 m   yaw = 0.0331 rad
+  real x desejada      RMSE pos = 0.0705 m   yaw = 0.1353 rad

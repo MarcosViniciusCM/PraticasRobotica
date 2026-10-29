@@ -13,6 +13,9 @@
 <robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:arg name="use_ros2_control" default="true" />
+  <!-- atrito lateral das rodas (mu1, ver comentario nas rodas). Argumento para que
+       a pratica 05.1 possa usar outro valor sem copiar o modelo. -->
+  <xacro:arg name="wheel_mu1" default="0.1" />
   <xacro:arg name="controllers_file"
              default="$(find my_robot_control)/config/diff_drive_controller.yaml" />
 
@@ -142,7 +145,7 @@
            angular fica abaixo da comandada); atrito longitudinal alto mantem a
            tracao para frente. -->
       <fdir1>0 1 0</fdir1>
-      <mu1>0.1</mu1>
+      <mu1>$(arg wheel_mu1)</mu1>
       <mu2>1.5</mu2>
       <kp>1000000.0</kp>
       <kd>10.0</kd>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>my_robot_estimation</name>
+  <version>0.1.0</version>
+  <description>Pratica 05.1 - Estimacao de estados: filtro de Kalman (robot_localization) e controle da trajetoria em 8 com o estado estimado</description>
+  <maintainer email="marcosviniciuscm16@gmail.com">marco</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>my_robot_control</exec_depend>
+  <exec_depend>my_robot_trajectory</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>plotjuggler_ros</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

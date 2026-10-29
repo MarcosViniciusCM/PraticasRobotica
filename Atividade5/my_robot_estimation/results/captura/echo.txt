@@ -1,0 +1,30 @@
+header:
+  stamp:
+    sec: 37
+    nanosec: 93000000
+  frame_id: odom
+child_frame_id: base_link
+pose:
+  pose:
+    position:
+      x: -0.1206032929630582
+      y: -0.014033721775981594
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -0.02717909724966594
+      w: 0.9996305801008156
+  covariance: '<array type: double[36]>'
+twist:
+  twist:
+    linear:
+      x: 0.0025595842305064427
+      y: -0.0014463828547913798
+      z: 0.0
+    angular:
+      x: 0.0
+      y: 0.0
+      z: 0.015429845577273116
+  covariance: '<array type: double[36]>'
+---

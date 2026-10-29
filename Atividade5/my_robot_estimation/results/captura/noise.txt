@@ -1,0 +1,1 @@
+[noisy_sensors.py-3] [INFO] [1793284368.201249775] [noisy_sensors]: noise_scale=1.00: odom v/w std = 0.050 m/s / 0.050 rad/s, giroscopio std = 0.020 rad/s, posicao std = 0.050 m, yaw std = 0.050 rad

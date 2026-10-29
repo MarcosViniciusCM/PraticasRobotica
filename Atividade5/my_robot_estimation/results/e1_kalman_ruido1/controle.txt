@@ -1,0 +1,3 @@
+ RMSE posicao   : 0.0746 m
+ RMSE orientacao: 0.1321 rad (7.57 deg)
+ erro pos maximo: 0.2195 m

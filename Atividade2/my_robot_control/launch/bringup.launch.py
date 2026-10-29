@@ -39,7 +39,8 @@ def generate_launch_description():
     pkg_share = get_package_share_directory('my_robot_control')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
-    xacro_file = os.path.join(pkg_share, 'urdf', 'my_robot.urdf.xacro')
+    default_xacro_file = os.path.join(pkg_share, 'urdf', 'my_robot.urdf.xacro')
+    xacro_file = LaunchConfiguration('xacro_file')
     default_controllers_file = os.path.join(
         pkg_share, 'config', 'diff_drive_controller.yaml')
     controllers_file = LaunchConfiguration('controllers_file')
@@ -82,7 +83,11 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
         ),
-        launch_arguments={'verbose': 'true'}.items(),
+        launch_arguments={
+            'verbose': 'true',
+            'world': LaunchConfiguration('world'),
+            'params_file': LaunchConfiguration('gazebo_params_file'),
+        }.items(),
     )
 
     # gzclient atrasado: subir junto com o gzserver causa uma condicao de corrida
@@ -218,8 +223,15 @@ def generate_launch_description():
                               description='Abre o gzclient (interface grafica do Gazebo)'),
         DeclareLaunchArgument('teleop', default_value='true',
                               description='Abre o teleop_twist_keyboard em um xterm'),
+        DeclareLaunchArgument('gazebo_params_file', default_value='',
+                              description='YAML de parametros do no gazebo (ex. publish_rate do /clock)'),
+        DeclareLaunchArgument('xacro_file', default_value=default_xacro_file,
+                              description='Xacro do robo (permite acrescentar sensores)'),
         DeclareLaunchArgument('controllers_file', default_value=default_controllers_file,
                               description='YAML do controller_manager/diff_drive_controller'),
+        DeclareLaunchArgument('world',
+                              default_value=os.path.join(pkg_gazebo_ros, 'worlds', 'empty.world'),
+                              description='Arquivo .world do Gazebo'),
         model_path,
         gazebo_models,
         gazebo_resources,

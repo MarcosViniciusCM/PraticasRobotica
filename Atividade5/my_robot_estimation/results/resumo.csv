@@ -1,0 +1,5 @@
+label,rmse_raw_m,rmse_meas_m,rmse_ekf_m,rmse_ekf_yaw_rad,rmse_raw_yaw_rad,track_rmse_m
+e1_kalman_ruido1,1.1778,0.0763,0.0457,0.0331,0.4324,0.0705
+e2_kalman_ruido5,1.9053,0.3630,0.1217,0.0780,0.4512,0.1111
+e3_bruto_ruido1,0.3173,0.0750,0.0457,0.0325,0.1403,0.3232
+e4_bruto_ruido5,0.5795,0.3604,0.1261,0.0731,0.3349,0.5779

@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+  Pratica 05.1 - robo da pratica 02 + sensores para a estimacao de estados.
+
+  - IMU (libgazebo_ros_imu_sensor) em /imu/out - giroscopio sem ruido; o ruido
+    e acrescentado por scripts/noisy_sensors.py, para poder ser escalado por
+    parametro sem recriar o robo.
+  - Ground truth (libgazebo_ros_p3d) em /ground_truth/odom - pose real do chassi
+    no mundo, direto do Gazebo. So serve de referencia para os graficos; o
+    controle e o filtro nunca o leem.
+
+  Obs. - nada de remapeamento (com dois-pontos e igual) no URDF - o
+  gazebo_ros2_control repassa o URDF como parametro de linha de comando e esse
+  trecho quebra o parser de argumentos. Por isso os topicos saem por namespace.
+-->
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- atrito lateral das rodas. Na pratica 02 e 0.1 para o robo girar no lugar com
+       facilidade, mas com isso o chassi derrapa e a odometria das rodas deixa de
+       bater com a pose real (ground truth). Aqui o robo precisa seguir o 8 de
+       verdade, entao o atrito e maior. -->
+  <xacro:arg name="wheel_mu1" default="1.0" />
+
+  <xacro:include filename="$(find my_robot_control)/urdf/my_robot.urdf.xacro" />
+
+  <gazebo reference="base_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>false</visualize>
+      <imu>
+        <angular_velocity>
+          <x><noise type="none"/></x>
+          <y><noise type="none"/></y>
+          <z><noise type="none"/></z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x><noise type="none"/></x>
+          <y><noise type="none"/></y>
+          <z><noise type="none"/></z>
+        </linear_acceleration>
+      </imu>
+      <plugin name="imu" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+        </ros>
+        <initial_orientation_as_reference>false</initial_orientation_as_reference>
+        <frame_name>base_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
+      <ros>
+        <namespace>/ground_truth</namespace>
+      </ros>
+      <body_name>base_link</body_name>
+      <frame_name>world</frame_name>
+      <update_rate>50.0</update_rate>
+      <gaussian_noise>0.0</gaussian_noise>
+    </plugin>
+  </gazebo>
+
+</robot>

@@ -1,0 +1,12 @@
+Type: nav_msgs/msg/Odometry
+
+Publisher count: 1
+
+Node name: ekf_filter_node
+Node namespace: /
+Topic type: nav_msgs/msg/Odometry
+Endpoint type: PUBLISHER
+GID: 01.0f.74.45.35.44.e7.2a.00.00.00.00.00.00.23.03.00.00.00.00.00.00.00.00
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
