@@ -1,0 +1,17 @@
+# Percurso do robo na sala 8 x 6 m (x em [-4, 4], y em [-3, 3]): uma volta pelo perimetro a
+# ~0.7 m das paredes, desviando dos obstaculos. Repetido 'laps' vezes: a segunda volta passa
+# de novo por lugares ja vistos, que e o que permite o fechamento de laco.
+waypoint_driver:
+  ros__parameters:
+    waypoints: [0.0, -2.2,
+                3.0, -2.2,
+                3.0,  2.3,
+                0.0,  2.3,
+               -3.0,  2.3,
+               -3.0, -2.2,
+                0.0, -2.2,
+                0.0,  0.0]
+    speed: 0.4
+    max_angular: 1.0
+    tolerance: 0.15
+    start_delay: 8.0

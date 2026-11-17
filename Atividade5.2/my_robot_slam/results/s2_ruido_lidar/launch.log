@@ -1,0 +1,130 @@
+[INFO] [launch]: All log files can be found below /home/marco/.ros/log/2026-11-16-16-56-25-483614-PCVinicius-11636
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gzserver-1]: process started with pid [11658]
+[INFO] [robot_state_publisher-2]: process started with pid [11660]
+[INFO] [odom_tf_node.py-3]: process started with pid [11662]
+[INFO] [async_slam_toolbox_node-4]: process started with pid [11664]
+[INFO] [waypoint_driver.py-5]: process started with pid [11666]
+[INFO] [slam_logger.py-6]: process started with pid [11668]
+[robot_state_publisher-2] [WARN] [1794858986.445090566] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-2] [INFO] [1794858986.445369006] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-2] [INFO] [1794858986.445574886] [robot_state_publisher]: got segment caster_wheel
+[robot_state_publisher-2] [INFO] [1794858986.445593377] [robot_state_publisher]: got segment left_wheel
+[robot_state_publisher-2] [INFO] [1794858986.445600067] [robot_state_publisher]: got segment lidar_link
+[robot_state_publisher-2] [INFO] [1794858986.445605841] [robot_state_publisher]: got segment right_wheel
+[async_slam_toolbox_node-4] [INFO] [1794858986.481066068] [slam_toolbox]: Node using stack size 40000000
+[async_slam_toolbox_node-4] [INFO] [1794858986.562786273] [slam_toolbox]: Using solver plugin solver_plugins::CeresSolver
+[async_slam_toolbox_node-4] [INFO] [1794858986.564730257] [slam_toolbox]: CeresSolver: Using SCHUR_JACOBI preconditioner.
+[waypoint_driver.py-5] [INFO] [1794858987.070563413] [waypoint_driver]: 8 pontos x 2 voltas, v=0.4 m/s
+[odom_tf_node.py-3] [INFO] [1794858987.136108412] [odom_tf_node]: odometria PERFEITA (ground truth)
+[slam_logger.py-6] [INFO] [1794858987.149079328] [slam_logger]: Gravando em /home/marco/ros2_ws/src/Atividade5/my_robot_slam/results/s2_ruido_lidar/slam.csv
+[gzserver-1] Gazebo multi-robot simulator, version 11.10.2
+[gzserver-1] Copyright (C) 2012 Open Source Robotics Foundation.
+[gzserver-1] Released under the Apache 2 License.
+[gzserver-1] http://gazebosim.org
+[gzserver-1] 
+[gzserver-1] [1;33m[Wrn] [gazebo_ros_init.cpp:178] [0m[1;33m
+[gzserver-1] #     # ####### ####### ###  #####  #######
+[gzserver-1] ##    # #     #    #     #  #     # #
+[gzserver-1] # #   # #     #    #     #  #       #
+[gzserver-1] #  #  # #     #    #     #  #       #####
+[gzserver-1] #   # # #     #    #     #  #       #
+[gzserver-1] #    ## #     #    #     #  #     # #
+[gzserver-1] #     # #######    #    ###  #####  #######
+[gzserver-1] 
+[gzserver-1] This version of Gazebo, now called Gazebo classic, reaches end-of-life
+[gzserver-1] in January 2025. Users are highly encouraged to migrate to the new Gazebo
+[gzserver-1] using our migration guides (https://gazebosim.org/docs/latest/gazebo_classic_migration?utm_source=gazebo_ros_pkgs&utm_medium=cli)
+[gzserver-1] 
+[gzserver-1] [0m[1;33m
+[gzserver-1] [1;32m[Msg] [0m[1;32mWaiting for master.[0m[1;32m
+[gzserver-1] [0m[1;32m[0m[1;32m[0m[1;32m[Msg] [0m[1;32mConnected to gazebo master @ [0m[1;32mhttp://127.0.0.1:11345[0m[1;32m
+[gzserver-1] [0m[1;32m[0m[1;32m[0m[1;32m[Msg] [0m[1;32mPublicized address: [0m[1;32m10.255.255.254[0m[1;32m
+[gzserver-1] [0m[1;32m[0m[1;32m[0m[1;32m[Msg] [0m[1;32mLoading world file [[0m[1;32m/home/marco/ros2_ws/install/my_robot_slam/share/my_robot_slam/worlds/room.world[0m[1;32m][0m[1;32m
+[INFO] [spawn_entity.py-7]: process started with pid [11928]
+[spawn_entity.py-7] [INFO] [1794859002.855233240] [spawn_entity]: Spawn Entity started
+[spawn_entity.py-7] [INFO] [1794859002.855770642] [spawn_entity]: Loading entity published on topic robot_description
+[spawn_entity.py-7] [INFO] [1794859002.858528727] [spawn_entity]: Waiting for entity xml on robot_description
+[spawn_entity.py-7] [INFO] [1794859005.490287311] [spawn_entity]: Waiting for service /spawn_entity, timeout = 120
+[spawn_entity.py-7] [INFO] [1794859005.490594093] [spawn_entity]: Waiting for service /spawn_entity
+[spawn_entity.py-7] [INFO] [1794859005.499616002] [spawn_entity]: Calling service /spawn_entity
+[spawn_entity.py-7] [INFO] [1794859005.752382662] [spawn_entity]: Spawn status: SpawnEntity: Successfully spawned entity [my_robot]
+[gzserver-1] [0m[1;33m[0m[1;33m[0m[INFO] [1794859005.874250863] [gazebo_ros2_control]: Loading gazebo_ros2_control plugin
+[gzserver-1] [INFO] [1794859005.885888088] [gazebo_ros2_control]: Starting gazebo_ros2_control plugin in namespace: /
+[gzserver-1] [INFO] [1794859005.886270715] [gazebo_ros2_control]: Starting gazebo_ros2_control plugin in ros 2 node: gazebo_ros2_control
+[gzserver-1] [INFO] [1794859005.897453491] [gazebo_ros2_control]: connected to service!! robot_state_publisher
+[gzserver-1] [INFO] [1794859005.899330451] [gazebo_ros2_control]: Received urdf from param server, parsing...
+[gzserver-1] [INFO] [1794859005.899478383] [gazebo_ros2_control]: Loading parameter files /home/marco/ros2_ws/install/my_robot_slam/share/my_robot_slam/config/diff_drive_controller.yaml
+[INFO] [spawn_entity.py-7]: process has finished cleanly [pid 11928]
+[gzserver-1] [INFO] [1794859005.912159153] [gazebo_ros2_control]: Loading joint: left_wheel_joint
+[gzserver-1] [INFO] [1794859005.912238393] [gazebo_ros2_control]: 	State:
+[INFO] [spawner-8]: process started with pid [11967]
+[gzserver-1] [INFO] [1794859005.912406774] [gazebo_ros2_control]: 		 position
+[gzserver-1] [INFO] [1794859005.912447577] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794859005.912476823] [gazebo_ros2_control]: 	Command:
+[gzserver-1] [INFO] [1794859005.912596219] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794859005.913110792] [gazebo_ros2_control]: Loading joint: right_wheel_joint
+[gzserver-1] [INFO] [1794859005.913140078] [gazebo_ros2_control]: 	State:
+[gzserver-1] [INFO] [1794859005.913148572] [gazebo_ros2_control]: 		 position
+[gzserver-1] [INFO] [1794859005.913157132] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794859005.913163771] [gazebo_ros2_control]: 	Command:
+[gzserver-1] [INFO] [1794859005.913193264] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794859005.914573806] [resource_manager]: Initialize hardware 'GazeboSystem' 
+[gzserver-1] [INFO] [1794859005.915272907] [resource_manager]: Successful initialization of hardware 'GazeboSystem'
+[gzserver-1] [INFO] [1794859005.915863557] [resource_manager]: 'configure' hardware 'GazeboSystem' 
+[gzserver-1] [INFO] [1794859005.915928208] [resource_manager]: Successful 'configure' of hardware 'GazeboSystem'
+[gzserver-1] [INFO] [1794859005.915938829] [resource_manager]: 'activate' hardware 'GazeboSystem' 
+[gzserver-1] [INFO] [1794859005.915943946] [resource_manager]: Successful 'activate' of hardware 'GazeboSystem'
+[gzserver-1] [INFO] [1794859005.916045731] [gazebo_ros2_control]: Loading controller_manager
+[gzserver-1] [INFO] [1794859005.952589580] [gazebo_ros2_control]: Loaded gazebo_ros2_control.
+[async_slam_toolbox_node-4] [INFO] [1794859006.070934094] [slam_toolbox]: Message Filter dropping message: frame 'lidar_link' at time 16.609 for reason 'discarding message because the queue is full'
+[async_slam_toolbox_node-4] Info: clipped range threshold to be within minimum and maximum range!
+[async_slam_toolbox_node-4] Registering sensor: [Custom Described Lidar]
+[gzserver-1] [INFO] [1794859006.269041384] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[spawner-8] [INFO] [1794859006.313477480] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
+[gzserver-1] [INFO] [1794859006.315442340] [controller_manager]: Configuring controller 'joint_state_broadcaster'
+[gzserver-1] [INFO] [1794859006.315915085] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[spawner-8] [INFO] [1794859006.333039192] [spawner_joint_state_broadcaster]: [92mConfigured and activated [1mjoint_state_broadcaster[0m
+[INFO] [spawner-8]: process has finished cleanly [pid 11967]
+[INFO] [spawner-9]: process started with pid [11995]
+[gzserver-1] [INFO] [1794859006.859464656] [controller_manager]: Loading controller 'diff_drive_controller'
+[spawner-9] [INFO] [1794859006.903989906] [spawner_diff_drive_controller]: [94mLoaded [1mdiff_drive_controller[0m
+[gzserver-1] [INFO] [1794859006.906687268] [controller_manager]: Configuring controller 'diff_drive_controller'
+[spawner-9] [INFO] [1794859006.919711131] [spawner_diff_drive_controller]: [92mConfigured and activated [1mdiff_drive_controller[0m
+[INFO] [spawner-9]: process has finished cleanly [pid 11995]
+[INFO] [diff_drive_bridge.py-10]: process started with pid [12017]
+[diff_drive_bridge.py-10] [INFO] [1794859007.761031017] [diff_drive_bridge]: /cmd_vel -> /diff_drive_controller/cmd_vel_unstamped
+[diff_drive_bridge.py-10] [INFO] [1794859007.762713652] [diff_drive_bridge]: /diff_drive_controller/odom -> /odom
+[async_slam_toolbox_node-4] WARNING: Logging before InitGoogleLogging() is written to STDERR
+[async_slam_toolbox_node-4] W1116 16:57:21.360975 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:29.912499 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:30.318382 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:30.720945 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:31.119766 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:31.521696 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:31.924757 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:32.327308 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:32.741461 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:33.131799 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:51.639498 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:52.036000 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:52.438164 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:52.850023 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:53.279512 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:53.662992 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:54.056710 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:54.464993 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:54.864264 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:55.265758 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:55.664214 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:56.665125 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:58.381191 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:58.974637 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:59.381084 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:57:59.780272 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:58:00.184337 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[waypoint_driver.py-5] [INFO] [1794859094.166812021] [waypoint_driver]: volta 1/2 concluida
+[async_slam_toolbox_node-4] W1116 16:59:01.766434 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[async_slam_toolbox_node-4] W1116 16:59:02.178926 11704 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[waypoint_driver.py-5] [INFO] [1794859176.028057793] [waypoint_driver]: volta 2/2 concluida
+[waypoint_driver.py-5] [INFO] [1794859176.028569484] [waypoint_driver]: TRAJETORIA CONCLUIDA

@@ -1,0 +1,6 @@
+k3_sequestro_busca_larga
+  sequestro em t = 14.7 s: de (-0.06, 0.00) para (3.00, -2.00)
+  erro do SLAM antes : medio 0.005 m
+  erro logo apos     : 3.65 m
+  erro 60 s depois   : 5.31 m   (maximo 5.31 m)
+  NAO recuperou a localizacao (erro continua > 0.30 m)

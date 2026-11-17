@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+  Pratica 05.2 - cenario simples para SLAM: sala de 8 x 6 m (x em [-4, 4], y em [-3, 3])
+  com tres obstaculos. O robo nasce em (0, 0). Camera do gzclient de cima.
+-->
+<sdf version="1.6">
+  <world name="default">
+    <include><uri>model://ground_plane</uri></include>
+    <include><uri>model://sun</uri></include>
+
+    <model name="walls">
+      <static>true</static>
+      <link name="link">
+        <collision name="n"><pose>0 3.05 0.5 0 0 0</pose><geometry><box><size>8.2 0.1 1</size></box></geometry></collision>
+        <visual name="n"><pose>0 3.05 0.5 0 0 0</pose><geometry><box><size>8.2 0.1 1</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material></visual>
+        <collision name="s"><pose>0 -3.05 0.5 0 0 0</pose><geometry><box><size>8.2 0.1 1</size></box></geometry></collision>
+        <visual name="s"><pose>0 -3.05 0.5 0 0 0</pose><geometry><box><size>8.2 0.1 1</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material></visual>
+        <collision name="e"><pose>4.05 0 0.5 0 0 0</pose><geometry><box><size>0.1 6 1</size></box></geometry></collision>
+        <visual name="e"><pose>4.05 0 0.5 0 0 0</pose><geometry><box><size>0.1 6 1</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material></visual>
+        <collision name="w"><pose>-4.05 0 0.5 0 0 0</pose><geometry><box><size>0.1 6 1</size></box></geometry></collision>
+        <visual name="w"><pose>-4.05 0 0.5 0 0 0</pose><geometry><box><size>0.1 6 1</size></box></geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="box_a">
+      <static>true</static>
+      <pose>-1.5 1.0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.0 0.6 1</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.0 0.6 1</size></box></geometry>
+          <material><ambient>0.9 0.5 0.1 1</ambient><diffuse>0.9 0.5 0.1 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="box_b">
+      <static>true</static>
+      <pose>1.5 -1.0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.8 0.8 1</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.8 0.8 1</size></box></geometry>
+          <material><ambient>0.2 0.6 0.3 1</ambient><diffuse>0.2 0.6 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="cilindro">
+      <static>true</static>
+      <pose>2.0 1.1 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.4</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="v"><geometry><cylinder><radius>0.4</radius><length>1</length></cylinder></geometry>
+          <material><ambient>0.6 0.2 0.6 1</ambient><diffuse>0.6 0.2 0.6 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <gui>
+      <camera name="user_camera">
+        <pose>0 0 9 0 1.5707 1.5707</pose>
+      </camera>
+    </gui>
+  </world>
+</sdf>

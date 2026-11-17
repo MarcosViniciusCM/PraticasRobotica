@@ -1,0 +1,124 @@
+[INFO] [launch]: All log files can be found below /home/marco/.ros/log/2026-11-16-17-15-46-205860-PCVinicius-19137
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gzserver-1]: process started with pid [19141]
+[INFO] [robot_state_publisher-2]: process started with pid [19143]
+[INFO] [odom_tf_node.py-3]: process started with pid [19145]
+[INFO] [localization_slam_toolbox_node-4]: process started with pid [19147]
+[INFO] [waypoint_driver.py-5]: process started with pid [19149]
+[INFO] [slam_logger.py-6]: process started with pid [19151]
+[robot_state_publisher-2] [WARN] [1794860146.878677556] [kdl_parser]: The root link base_link has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.
+[robot_state_publisher-2] [INFO] [1794860146.878820757] [robot_state_publisher]: got segment base_link
+[robot_state_publisher-2] [INFO] [1794860146.878916942] [robot_state_publisher]: got segment caster_wheel
+[robot_state_publisher-2] [INFO] [1794860146.878925825] [robot_state_publisher]: got segment left_wheel
+[robot_state_publisher-2] [INFO] [1794860146.878931735] [robot_state_publisher]: got segment lidar_link
+[robot_state_publisher-2] [INFO] [1794860146.878936982] [robot_state_publisher]: got segment right_wheel
+[localization_slam_toolbox_node-4] [INFO] [1794860146.897916427] [slam_toolbox]: Node using stack size 40000000
+[localization_slam_toolbox_node-4] [INFO] [1794860146.941460899] [slam_toolbox]: Using solver plugin solver_plugins::CeresSolver
+[localization_slam_toolbox_node-4] [INFO] [1794860146.941868470] [slam_toolbox]: CeresSolver: Using SCHUR_JACOBI preconditioner.
+[localization_slam_toolbox_node-4] Load From File /home/marco/ros2_ws/src/Atividade5/my_robot_slam/results/s3_ruido_odom_lidar/posegraph.posegraph 
+[localization_slam_toolbox_node-4] Mapper <- Module
+[localization_slam_toolbox_node-4] Mapper <- m_pSequentialScanMatcher
+[localization_slam_toolbox_node-4] Mapper <- m_pGraph
+[localization_slam_toolbox_node-4] MapperGraph <- Graph; Graph <- m_Edges; Graph <- m_Vertices
+[localization_slam_toolbox_node-4] MapperGraph <- m_pMapper; MapperGraph <- m_pLoopScanMatcher; MapperGraph <- m_pTraversal
+[localization_slam_toolbox_node-4] Mapper <- m_pMapperSensorManager
+[localization_slam_toolbox_node-4] MapperSensorManager <- m_ScanManagers; MapperSensorManager <- m_Scans
+[localization_slam_toolbox_node-4] Mapper <- m_Listeners
+[localization_slam_toolbox_node-4] **Finished serializing Mapper**
+[localization_slam_toolbox_node-4] Load From File
+[localization_slam_toolbox_node-4] **Serializing Dataset**
+[localization_slam_toolbox_node-4] Dataset <- m_SensorNameLookup
+[localization_slam_toolbox_node-4] Dataset <- m_Data
+[localization_slam_toolbox_node-4] Dataset <- m_Lasers
+[localization_slam_toolbox_node-4] Dataset <- m_pDatasetInfo
+[localization_slam_toolbox_node-4] **Finished serializing Dataset**
+[localization_slam_toolbox_node-4] Registering sensor: [Custom Described Lidar]
+[localization_slam_toolbox_node-4] WARNING: Logging before InitGoogleLogging() is written to STDERR
+[localization_slam_toolbox_node-4] W1116 17:15:47.118134 19147 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[gzserver-1] Gazebo multi-robot simulator, version 11.10.2
+[gzserver-1] Copyright (C) 2012 Open Source Robotics Foundation.
+[gzserver-1] Released under the Apache 2 License.
+[gzserver-1] http://gazebosim.org
+[gzserver-1] 
+[waypoint_driver.py-5] [INFO] [1794860147.261945431] [waypoint_driver]: 8 pontos x 2 voltas, v=0.4 m/s
+[slam_logger.py-6] [INFO] [1794860147.318489172] [slam_logger]: Gravando em /home/marco/ros2_ws/src/Atividade5/my_robot_slam/results/k4_sequestro_em_movimento/slam.csv
+[odom_tf_node.py-3] [INFO] [1794860147.320102494] [odom_tf_node]: odometria RUIDOSA, noise_scale=1.00: v std=0.030 m/s (+3.0 % de escala), w std=0.030 rad/s (vies 0.0050 rad/s)
+[gzserver-1] [1;33m[Wrn] [gazebo_ros_init.cpp:178] [0m[1;33m
+[gzserver-1] #     # ####### ####### ###  #####  #######
+[gzserver-1] ##    # #     #    #     #  #     # #
+[gzserver-1] # #   # #     #    #     #  #       #
+[gzserver-1] #  #  # #     #    #     #  #       #####
+[gzserver-1] #   # # #     #    #     #  #       #
+[gzserver-1] #    ## #     #    #     #  #     # #
+[gzserver-1] #     # #######    #    ###  #####  #######
+[gzserver-1] 
+[gzserver-1] This version of Gazebo, now called Gazebo classic, reaches end-of-life
+[gzserver-1] in January 2025. Users are highly encouraged to migrate to the new Gazebo
+[gzserver-1] using our migration guides (https://gazebosim.org/docs/latest/gazebo_classic_migration?utm_source=gazebo_ros_pkgs&utm_medium=cli)
+[gzserver-1] 
+[gzserver-1] [0m[1;33m
+[gzserver-1] [1;32m[Msg] [0m[1;32mWaiting for master.[0m[1;32m
+[gzserver-1] [0m[1;32m[0m[1;32m[0m[1;32m[Msg] [0m[1;32mConnected to gazebo master @ [0m[1;32mhttp://127.0.0.1:11345[0m[1;32m
+[gzserver-1] [0m[1;32m[0m[1;32m[0m[1;32m[Msg] [0m[1;32mPublicized address: [0m[1;32m10.255.255.254[0m[1;32m
+[gzserver-1] [0m[1;32m[0m[1;32m[0m[1;32m[Msg] [0m[1;32mLoading world file [[0m[1;32m/home/marco/ros2_ws/install/my_robot_slam/share/my_robot_slam/worlds/room.world[0m[1;32m][0m[1;32m
+[INFO] [spawn_entity.py-7]: process started with pid [19360]
+[spawn_entity.py-7] [INFO] [1794860163.187329159] [spawn_entity]: Spawn Entity started
+[spawn_entity.py-7] [INFO] [1794860163.187818355] [spawn_entity]: Loading entity published on topic robot_description
+[spawn_entity.py-7] [INFO] [1794860163.190213197] [spawn_entity]: Waiting for entity xml on robot_description
+[spawn_entity.py-7] [INFO] [1794860163.202733221] [spawn_entity]: Waiting for service /spawn_entity, timeout = 120
+[spawn_entity.py-7] [INFO] [1794860163.203022245] [spawn_entity]: Waiting for service /spawn_entity
+[spawn_entity.py-7] [INFO] [1794860163.208906387] [spawn_entity]: Calling service /spawn_entity
+[spawn_entity.py-7] [INFO] [1794860163.510339946] [spawn_entity]: Spawn status: SpawnEntity: Successfully spawned entity [my_robot]
+[gzserver-1] [0m[1;33m[0m[1;33m[0m[INFO] [1794860163.624301818] [gazebo_ros2_control]: Loading gazebo_ros2_control plugin
+[gzserver-1] [INFO] [1794860163.634991202] [gazebo_ros2_control]: Starting gazebo_ros2_control plugin in namespace: /
+[gzserver-1] [INFO] [1794860163.635300811] [gazebo_ros2_control]: Starting gazebo_ros2_control plugin in ros 2 node: gazebo_ros2_control
+[gzserver-1] [INFO] [1794860163.644570749] [gazebo_ros2_control]: connected to service!! robot_state_publisher
+[gzserver-1] [INFO] [1794860163.645571989] [gazebo_ros2_control]: Received urdf from param server, parsing...
+[gzserver-1] [INFO] [1794860163.645669067] [gazebo_ros2_control]: Loading parameter files /home/marco/ros2_ws/install/my_robot_slam/share/my_robot_slam/config/diff_drive_controller.yaml
+[gzserver-1] [INFO] [1794860163.655387180] [gazebo_ros2_control]: Loading joint: left_wheel_joint
+[gzserver-1] [INFO] [1794860163.655471861] [gazebo_ros2_control]: 	State:
+[gzserver-1] [INFO] [1794860163.655484200] [gazebo_ros2_control]: 		 position
+[gzserver-1] [INFO] [1794860163.655492691] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794860163.655533593] [gazebo_ros2_control]: 	Command:
+[gzserver-1] [INFO] [1794860163.655611106] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794860163.656059012] [gazebo_ros2_control]: Loading joint: right_wheel_joint
+[gzserver-1] [INFO] [1794860163.656093064] [gazebo_ros2_control]: 	State:
+[gzserver-1] [INFO] [1794860163.656100844] [gazebo_ros2_control]: 		 position
+[gzserver-1] [INFO] [1794860163.656108800] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794860163.656116416] [gazebo_ros2_control]: 	Command:
+[gzserver-1] [INFO] [1794860163.656135548] [gazebo_ros2_control]: 		 velocity
+[gzserver-1] [INFO] [1794860163.656507692] [resource_manager]: Initialize hardware 'GazeboSystem' 
+[gzserver-1] [INFO] [1794860163.656670318] [resource_manager]: Successful initialization of hardware 'GazeboSystem'
+[gzserver-1] [INFO] [1794860163.656846777] [resource_manager]: 'configure' hardware 'GazeboSystem' 
+[gzserver-1] [INFO] [1794860163.656871126] [resource_manager]: Successful 'configure' of hardware 'GazeboSystem'
+[gzserver-1] [INFO] [1794860163.656878540] [resource_manager]: 'activate' hardware 'GazeboSystem' 
+[gzserver-1] [INFO] [1794860163.656883043] [resource_manager]: Successful 'activate' of hardware 'GazeboSystem'
+[gzserver-1] [INFO] [1794860163.656949713] [gazebo_ros2_control]: Loading controller_manager
+[INFO] [spawn_entity.py-7]: process has finished cleanly [pid 19360]
+[INFO] [spawner-8]: process started with pid [19378]
+[gzserver-1] [INFO] [1794860163.685721839] [gazebo_ros2_control]: Loaded gazebo_ros2_control.
+[localization_slam_toolbox_node-4] [INFO] [1794860163.808677142] [slam_toolbox]: Message Filter dropping message: frame 'lidar_link' at time 15.553 for reason 'discarding message because the queue is full'
+[gzserver-1] [INFO] [1794860164.273188567] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[spawner-8] [INFO] [1794860164.305991878] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
+[gzserver-1] [INFO] [1794860164.308044590] [controller_manager]: Configuring controller 'joint_state_broadcaster'
+[gzserver-1] [INFO] [1794860164.308555327] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[spawner-8] [INFO] [1794860164.322504069] [spawner_joint_state_broadcaster]: [92mConfigured and activated [1mjoint_state_broadcaster[0m
+[INFO] [spawner-8]: process has finished cleanly [pid 19378]
+[INFO] [spawner-9]: process started with pid [19397]
+[gzserver-1] [INFO] [1794860164.764290435] [controller_manager]: Loading controller 'diff_drive_controller'
+[spawner-9] [INFO] [1794860164.802842844] [spawner_diff_drive_controller]: [94mLoaded [1mdiff_drive_controller[0m
+[gzserver-1] [INFO] [1794860164.804330551] [controller_manager]: Configuring controller 'diff_drive_controller'
+[spawner-9] [INFO] [1794860164.815649858] [spawner_diff_drive_controller]: [92mConfigured and activated [1mdiff_drive_controller[0m
+[INFO] [spawner-9]: process has finished cleanly [pid 19397]
+[INFO] [diff_drive_bridge.py-10]: process started with pid [19419]
+[diff_drive_bridge.py-10] [INFO] [1794860165.574053961] [diff_drive_bridge]: /cmd_vel -> /diff_drive_controller/cmd_vel_unstamped
+[diff_drive_bridge.py-10] [INFO] [1794860165.574438679] [diff_drive_bridge]: /diff_drive_controller/odom -> /odom
+[localization_slam_toolbox_node-4] [INFO] [1794860166.311960102] [slam_toolbox]: Message Filter dropping message: frame 'lidar_link' at time 18.053 for reason 'discarding message because the queue is full'
+[localization_slam_toolbox_node-4] Info: clipped range threshold to be within minimum and maximum range!
+[localization_slam_toolbox_node-4] Registering sensor: [Custom Described Lidar]
+[localization_slam_toolbox_node-4] W1116 17:16:35.429855 19187 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[localization_slam_toolbox_node-4] W1116 17:17:00.375554 19187 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[localization_slam_toolbox_node-4] W1116 17:17:00.403952 19187 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[localization_slam_toolbox_node-4] W1116 17:17:01.166927 19187 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.
+[gzserver-1] [1;33m[Wrn] [Publisher.cc:135] [0m[1;33mQueue limit reached for topic [0m[1;33m/gazebo/default/physics/contacts[0m[1;33m, deleting message. [0m[1;33mThis warning is printed only once.[0m[1;33m
+[localization_slam_toolbox_node-4] W1116 17:17:17.326753 19187 preprocessor.cc:62] Specified options.num_threads: 50 exceeds maximum available from the threading model Ceres was compiled with: 8.  Bounding to maximum number available.

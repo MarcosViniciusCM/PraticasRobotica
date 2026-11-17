@@ -1,0 +1,4 @@
+s1_sem_ruido
+  odometria sozinha : RMSE 0.002 m   max 0.047 m
+  SLAM (map->base)  : RMSE 0.013 m   max 0.058 m   yaw RMSE 0.29 graus
+  mapa              : erro medio 3.0 cm   p95 4.0 cm   cobertura(10cm) 87.9 %   celulas ocupadas 780

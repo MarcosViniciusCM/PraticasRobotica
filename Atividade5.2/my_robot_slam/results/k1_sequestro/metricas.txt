@@ -1,0 +1,6 @@
+k1_sequestro
+  sequestro em t = 14.9 s: de (-0.07, 0.00) para (3.00, -2.00)
+  erro do SLAM antes : medio 0.012 m
+  erro logo apos     : 3.64 m
+  erro 60 s depois   : 4.12 m   (maximo 4.12 m)
+  NAO recuperou a localizacao (erro continua > 0.30 m)

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+  Pratica 05.2 - robo da pratica 05.1 (modelo + IMU + ground truth) com um Lidar 2D.
+
+  Exercicio 1.1 - ruido nas medicoes do Lidar. O ruido e gaussiano e feito pelo proprio
+  sensor do Gazebo, cada distancia medida recebe + N(0, lidar_noise_std^2).
+  O desvio padrao e o argumento xacro lidar_noise_std (0.0 = sensor perfeito, 0.03 = 3 cm).
+
+  Obs. - sem remapeamento (com dois-pontos e igual) no URDF, pois o gazebo_ros2_control repassa o
+  URDF como parametro de linha de comando e esse trecho quebra o parser. Por isso o topico
+  sai pelo nome do plugin, o plugin "scan" no namespace "/" publica em /scan/out.
+-->
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="lidar_noise_std" default="0.0" />
+  <xacro:arg name="lidar_range_max" default="8.0" />
+
+  <xacro:include filename="$(find my_robot_estimation)/urdf/my_robot_sensors.urdf.xacro" />
+
+  <link name="lidar_link">
+    <visual>
+      <geometry><cylinder radius="0.035" length="0.04" /></geometry>
+      <material name="red"><color rgba="0.9 0.1 0.1 1.0" /></material>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.035" length="0.04" /></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1" />
+      <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5" />
+    </inertial>
+  </link>
+
+  <!-- o Lidar fica a 0.15 m, acima do topo das rodas (0.10 m) e do chassi (0.05 m). Mais baixo, o feixe bate nas rodas e o SLAM passa a ver pontos fixos no robo -->
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="lidar_link" />
+    <origin xyz="0 0 0.15" rpy="0 0 0" />
+  </joint>
+
+  <gazebo reference="lidar_link">
+    <material>Gazebo/Red</material>
+    <sensor name="lidar" type="ray">
+      <always_on>true</always_on>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+      <pose>0 0 0 0 0 0</pose>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.12</min>
+          <max>$(arg lidar_range_max)</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>$(arg lidar_noise_std)</stddev>
+        </noise>
+      </ray>
+      <plugin name="scan" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>lidar_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>

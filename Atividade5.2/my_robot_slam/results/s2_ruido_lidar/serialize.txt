@@ -1,0 +1,5 @@
+requester: making request: slam_toolbox.srv.SerializePoseGraph_Request(filename='/home/marco/ros2_ws/src/Atividade5/my_robot_slam/results/s2_ruido_lidar/posegraph')
+
+response:
+slam_toolbox.srv.SerializePoseGraph_Response(result=0)
+
